@@ -1,4 +1,6 @@
+from crypt import methods
 from system import app
+from system.form import LoginForm, RegistrationForm
 from flask import render_template, url_for, redirect
 
 
@@ -26,3 +28,15 @@ def testimonials():
 @app.route('/404')
 def not_found():
     return render_template('404.html')
+
+@app.route('/account/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    
+    return render_template('login.html', form=form)
+
+@app.route('/account/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    
+    return render_template('register.html', form=form)
