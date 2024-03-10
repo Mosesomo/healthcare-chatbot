@@ -68,7 +68,7 @@
                         <a href="404.html" class="dropdown-item">Register</a>
                     </div>
                 </div>
-                <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Appointment<i class="fa fa-arrow-right ms-3"></i></a>
+                <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5  d-lg-block">Appointment<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </div>
     </nav>
@@ -113,6 +113,26 @@
     <!-- Footer End -->
 
 
+    <!--chatbot-->
+    <div class="chat-bot-button">
+        <button class="chat" id="chat-toggle" onclick="openChat()">Feeling unwell! lets chat</button>
+    </div>
+    <div class="chat-box" id="chat-box">
+        <div class="chat-box-header">
+            <span id="close-chat-btn" onclick="closeChat()" aria-hidden="true">&times;</span>
+        </div>
+        <div class="chat-box-body">
+          <div class="response">
+            <p>Welcome to MediBridge AI health care assistant, felling unwell,
+            I am here to assist you, Let's have a chat.</p>
+          </div>
+        </div>
+        <div class="chat-box-footer">
+          <input type="text" placeholder="Ask a question..." />
+          <button>Send</button>
+        </div>
+      </div>
+
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
@@ -131,4 +151,5 @@
 
     <!-- Template Javascript -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 </body>
