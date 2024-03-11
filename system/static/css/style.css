@@ -550,13 +550,13 @@
     border: none;
     background: blue;
     cursor: pointer;
-    color: #fff;
+    color: var(--light) !important;
     text-align: end;
     transition: ease-in-out 2s;
 }
 
 .chat:hover{
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 .chat-box {
     display: none;
@@ -684,14 +684,16 @@
     margin: 45px auto;
     width: 100%;
     flex: 1 0 auto;
-    background: #ffffff;
+    background: hsl(0, 0%, 100%);
     padding: 10px 20px;
-    box-shadow: 0 4px 4px 4px var(--primary);
+    box-shadow: 0 4px 8px 8px rgba(48, 6, 237, 0.1);
     border-radius: 3px;
     margin-bottom: 20px;
     font-weight: 500;
   }
-
+legend{
+    color: var(--dark);
+}
 .content-section .form-group{
     padding-left: 20px;
     padding-right: 20px;
@@ -703,13 +705,13 @@
     padding-right: 20px;
   }
   .content-section .form-group .btn{
-    width: 100px;
+    width: 100%;
     color: #fff;
     background-color: var(--primary);
     transition: all ease-in .9s;
   }
   .content-section .form-group .btn:hover{
-    transform: scale3d(2);
+    transform: scale(1.1);
   }
   .content-section .form-group .btn .btn-outline-info{
     padding: 2px;
@@ -727,6 +729,7 @@
     margin-bottom: 18px;
   }
   .form-group .form-control-label{
+    color: var(--dark);
     font-size: 16px;
   }
   .form-group .form-control{
@@ -741,7 +744,7 @@
 
 @media (max-width: 980px) {
     .content-section {
-        max-width: 350px;
+        max-width: 378px;
         width: 100%;
     }
     .content-section .form-group{
