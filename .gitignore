@@ -1,0 +1,8 @@
+# ignore all files with json extension
+*.json
+
+# Ignore enviroment file
+.env
+
+# Ignore node_modules
+/node_modules/

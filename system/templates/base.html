@@ -64,8 +64,18 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Account</a>
                     <div class="dropdown-menu rounded-0 rounded-bottom m-0">
-                        <a href="{{url_for('login')}}" class="dropdown-item">sign In</a>
-                        <a href="{{url_for('register')}}" class="dropdown-item">sign Up</a>
+                        {% if current_user.is_authenticated %}
+                            <div class="user dropdown-item">
+                                <p>
+                                    <img class="" src="{{url_for('static', filename='img/userImage.png')}}" width="50" height="50">
+                                    {{current_user.first_name}} {{current_user.last_name}}
+                                </p>
+                            </div>
+                            <a href="{{url_for('logout')}}" class="dropdown-item"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+                        {% else %}
+                            <a href="{{url_for('login')}}" class="dropdown-item"><i class="fa-solid fa-right-to-bracket"></i> sign In</a>
+                            <a href="{{url_for('register')}}" class="dropdown-item"><i class="fa-solid fa-registered"></i> sign Up</a>
+                        {% endif %}
                     </div>
                 </div>
                 <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5  d-lg-block">Appointment<i class="fa fa-arrow-right ms-3"></i></a>
@@ -74,6 +84,17 @@
     </nav>
     <!-- Navbar End -->
 
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+              {% for category, message in messages %}
+                  <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert" id="alert">
+                      {{ message }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              {% endfor %}
+          {% endif %}
+        {% endwith %}
     <!--child contents-->
     {% block content %}
         <!--contents-->
@@ -148,6 +169,7 @@
     <script src="{{ url_for('static', filename='lib/tempusdominus/js/moment.min.js') }}"></script>
     <script src="{{ url_for('static', filename='lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
     <script src="{{ url_for('static', filename='lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <script src="https://kit.fontawesome.com/d1e0a0909b.js" crossorigin="anonymous"></script>
 
     <!-- Template Javascript -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
