@@ -1,0 +1,32 @@
+{% extends 'root.html' %}
+{% block content %}
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <h4 class="text-center">Patients</h4>
+          <div class="box-body">
+            <table id="example1" class="table table-bordered table-hover table-striped">
+              <thead class="table bg-primary text-light">
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+              </thead>
+              <tbody>
+                {% for patient in patients %}
+                  <tr>
+                    <td>{{patient.first_name}}</td>
+                    <td>{{patient.last_name}}</td>
+                    <td>{{patient.email}}</td>
+                    <td>{{patient.phone}}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}

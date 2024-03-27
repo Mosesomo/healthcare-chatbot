@@ -315,7 +315,7 @@
     position: relative;
     top: 0;
     transition: .5s;
-    height: 400px;
+    height: 300px;
     width: 100%;
     object-fit: cover;
 }
@@ -692,6 +692,39 @@
     font-weight: 500;
   }
 
+.content-section-doc{
+    max-width: 700px;
+    margin: 45px auto;
+    width: 100%;
+    flex: 1 0 auto;
+    background: hsl(0, 0%, 100%);
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px 8px rgba(48, 6, 237, 0.1);
+    border-radius: 3px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.content-section-doc .doc{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+}
+.doc .form-group{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.content-section-doc .form-group .btn{
+    width: 100%;
+    color: #fff;
+    background-color: var(--primary);
+    transition: all ease-in .9s;
+}
+.content-section-doc .form-group .btn:hover{
+    transform: scale(1.1);
+}
+
 .alert{
     max-width: 476px;
     width: 100%;
@@ -700,6 +733,7 @@
 }
 legend{
     color: var(--dark);
+    text-align: center;
 }
 .content-section .form-group{
     padding-left: 20px;
@@ -772,4 +806,63 @@ legend{
 
 .user img{
     border-radius: 50%;
+}
+
+.container-fluid .row{
+    position: relative;
+    color: #fff;
+    bottom: 0;
+}
+
+.container-fluid .row .col-auto li{
+    list-style: none;
+    margin-top: 10px;
+}
+
+.container-fluid .row .col-auto li a {
+    color: #fff;
+}
+
+.container-fluid .row .col-auto li a:hover {
+    color: var(--primary);
+}
+
+.content{
+    padding: 20px;
+    box-shadow: 0 4px 8px 8px rgba(48, 6, 237, 0.1);
+    border-radius: 3px;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+
+.main-header .navbar{
+    box-shadow: 0 4px 8px 8px rgba(48, 6, 237, 0.1);
+}
+
+.sidebar button{
+    margin: 5px;
+    margin-left: 7px;
+}
+
+.sidebar button i{
+    font-size: 20px;
+}
+
+.sidebar .offcanvas{
+    width: 274px;
+    position: fixed;
+}
+
+.content .box-header{
+    margin-bottom: 10px;
+}
+
+.box .box-body td img{
+    height: 70px;
+    width: 100%;
+    object-fit: cover;
 }

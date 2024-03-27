@@ -1,0 +1,65 @@
+{% extends 'root.html' %}
+{% block content %}
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <h4 class="text-center">Doctors</h4>
+          <div class="box-body">
+            <table id="example1" class="table table-bordered table-hover table-striped">
+              <thead class="table bg-primary text-light">
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Department</th>
+                <th>Photo</th>
+                <th>Status</th>
+                <th>Action</th>
+              </thead>
+              <tbody>
+                {% for doctor in doctors %}
+                  <tr>
+                    <td>{{doctor.name}}</td>
+                    <td>{{doctor.email}}</td>
+                    <td>{{doctor.phone}}</td>
+                    <td>{{doctor.department}}</td>
+                    <td><img src="{{doctor.picture}}" width="80" height="80"
+                        alt="Avatar" class="img img-fluid"></td>
+                      <td><button class='btn btn-primary btn-sm edit btn-flat'>{{'Approved' if doctor.approved}}</button></td>
+                    <td>
+                      <button type="button" class='btn btn-danger btn-sm delete btn-flat'
+                      data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                        class='fa fa-trash'></i> Remove</button>
+                      </td>
+                  </tr>
+                  <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Remove Doctor</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p>Are you sure you want to delete the Doctor?<p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
+                          <form action="" method="POST">
+                            <input class="btn btn-danger" type="submit" value="Remove">
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}

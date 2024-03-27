@@ -225,70 +225,25 @@
                 <h1>Our Experience Doctors</h1>
             </div>
             <div class="row g-4">
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="team-item position-relative rounded overflow-hidden">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/doc2.jpg') }}" alt="">
-                        </div>
-                        <div class="team-text bg-light text-center p-4">
-                            <h5>Doctor Name</h5>
-                            <p class="text-primary">Department</p>
-                            <div class="team-social text-center">
-                                <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
+                {% for doctor in doctors %}
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item position-relative rounded overflow-hidden">
+                            <div class="overflow-hidden">
+                                <a href="{{url_for('doc_appointment', doctor_id=doctor.id)}}"><img class="img-fluid" src="{{ doctor.picture }}" alt=""></a>
+                            </div>
+                            <div class="team-text bg-light text-center p-4">
+                                <h5>{{doctor.name}}</h5>
+                                <p class="text-primary">{{doctor.department}}</p>
+                                <div class="team-social text-center">
+                                    <a class="btn btn-square" href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-square" href="#"><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                                </div>
+                                <h6><i class="fa fa-phone-alt text-primary"></i>  {{doctor.phone}}</h6>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="team-item position-relative rounded overflow-hidden">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/lady_doc1.jpg') }}" alt="">
-                        </div>
-                        <div class="team-text bg-light text-center p-4">
-                            <h5>Doctor Name</h5>
-                            <p class="text-primary">Department</p>
-                            <div class="team-social text-center">
-                                <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="team-item position-relative rounded overflow-hidden">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/doc5.jpg') }}" alt="">
-                        </div>
-                        <div class="team-text bg-light text-center p-4">
-                            <h5>Doctor Name</h5>
-                            <p class="text-primary">Department</p>
-                            <div class="team-social text-center">
-                                <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="team-item position-relative rounded overflow-hidden">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/doc6.jpg') }}" alt="">
-                        </div>
-                        <div class="team-text bg-light text-center p-4">
-                            <h5>Doctor Name</h5>
-                            <p class="text-primary">Department</p>
-                            <div class="team-social text-center">
-                                <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -311,7 +266,7 @@
                         </div>
                         <div class="ms-4">
                             <p class="mb-2">Call Us Now</p>
-                            <h5 class="mb-0">+254 723 456 789</h5> <!-- Updated to Kenyan format -->
+                            <h5 class="mb-0">+254 758171116</h5> <!-- Updated to Kenyan format -->
                         </div>
                     </div>
                     <div class="bg-light rounded d-flex align-items-center p-5">
@@ -324,7 +279,7 @@
                         </div>
                     </div>
                     <div class="col-12 mt-6">
-                        <button class="btn btn-primary w-100 py-3 mt-6" type="submit">Schedule Appointment</button>
+                        <a href="{{url_for('patient_doc_appointment')}}"><button class="btn btn-primary w-100 py-3 mt-6" type="submit"><i class="fa fa-calendar-alt me-2"></i>Schedule Appointment</button></a>
                     </div>
                 </div>
             </div>
@@ -342,30 +297,16 @@
             <h1>What Our Patients Have to Say!</h1>
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-            <div class="testimonial-item text-center">
-                <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="{{ url_for('static', filename='img/testimonial-1.jpg') }}" style="width: 100px; height: 100px;">
-                <div class="testimonial-text rounded text-center p-4">
-                    <p>I had a fantastic experience with the healthcare team at your clinic. They were very professional and made me feel at ease. The treatment was effective, and I've noticed a significant improvement in my health.</p>
-                    <h5 class="mb-1">Jane Doe</h5>
-                    <span class="fst-italic">Patient</span>
+            {% for testimonial in testimonials  %}
+                <div class="testimonial-item text-center">
+                    <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="{{ url_for('static', filename=testimonial.picture) }}" style="width: 100px; height: 100px;">
+                    <div class="testimonial-text rounded text-center p-4">
+                        <p>{{testimonial.text}}</p>
+                        <h5 class="mb-1">{{testimonial.name}}</h5>
+                        <span class="fst-italic">Patient</span>
+                    </div>
                 </div>
-            </div>
-            <div class="testimonial-item text-center">
-                <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="{{ url_for('static', filename='img/testimonial-2.jpg') }}" style="width: 100px; height: 100px;">
-                <div class="testimonial-text rounded text-center p-4">
-                    <p>The care I received was top-notch. The staff was attentive and made sure I understood everything. I feel much better now and am looking forward to continued support from your team.</p>
-                    <h5 class="mb-1">John Smith</h5>
-                    <span class="fst-italic">Patient</span>
-                </div>
-            </div>
-            <div class="testimonial-item text-center">
-                <img class="img-fluid bg-light rounded-circle p-2 mx-auto mb-4" src="{{ url_for('static', filename='img/testimonial-3.jpg') }}" style="width: 100px; height: 100px;">
-                <div class="testimonial-text rounded text-center p-4">
-                    <p>My experience at your clinic was incredibly positive. The staff was caring and knowledgeable, and I felt well-informed about my treatment options. I'm grateful for the support and care I received.</p>
-                    <h5 class="mb-1">Emily Johnson</h5>
-                    <span class="fst-italic">Patient</span>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>

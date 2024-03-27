@@ -1,0 +1,31 @@
+
+<div class="sidebar">
+   <!-- Toggle Button -->
+   <button class="btn btn-primary text-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+      <i class="bi bi-list"></i>
+   </button>
+   
+   <div class="offcanvas offcanvas-start bg-light p-3" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      <div class="offcanvas-header">
+         <h5 class="offcanvas-title" id="offcanvasExampleLabel">MediBridge</h5>
+         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+   
+         <!-- Sidebar menu -->
+
+         <ul class="list-unstyled">
+         {% if current_user.is_admin %}
+            <li class="mb-2"><a href="{{url_for('dashboard')}}" class="d-flex align-items-center"><i class="fa fa-dashboard me-2"></i> Dashboard</a></li>
+            <li class="mb-2"><a href="{{url_for('doctors')}}" class="d-flex align-items-center"><i class="fa fa-users me-2"></i> Doctors</a></li>
+            <li class="mb-2"><a href="{{url_for('patients')}}" class="d-flex align-items-center"><i class="fa fa-users me-2"></i> Patients</a></li>
+            <li class="mb-2"><a href="{{url_for('my_appointments')}}" class="d-flex align-items-center"><i class="fa fa-edit me-2"></i>My Appointments</a></li>
+         {% else %}
+            <li class="mb-2"><a href="{{url_for('appointments')}}" class="d-flex align-items-center"><i class="fa fa-edit me-2"></i> Appointments</a></li>
+            <li class="mb-2"><a href="{{url_for('my_appointments')}}" class="d-flex align-items-center"><i class="fa fa-edit me-2"></i>My Appointments</a></li>
+         {% endif %}
+         
+         </ul>
+      </div>
+   </div>
+  
+</div>
