@@ -24,12 +24,18 @@
                   <td>{{appointment.location}}</td>
                   <td>{{appointment.user.first_name}}  {{appointment.user.last_name}}</td>
                   <td>{{appointment.user.email}}</td>
-                  <td><button class='btn btn-primary btn-sm btn-flat'>Pending</button></td>
+                  <td><button class='btn {{"btn-warning" if appointment.status else "btn-primary"}} btn-sm btn-flat'>{{ 'Cancelled' if appointment.status else 'Confirmed' }}</button></td>
                   <td>
+                    {% if not appointment.status %}
                       <button type="button" class='btn btn-danger btn-sm delete btn-flat'
                           data-bs-toggle="modal" data-bs-target="#exampleModal{{appointment.id}}"><i
                             class='fa fa-times'></i> Cancel</button>
-                    </td>
+                    {% else %}
+                      <button type="button" class='btn btn-danger btn-sm delete btn-flat'
+                      data-bs-toggle="modal" data-bs-target="#exampleModal{{appointment.id}}"><i
+                        class='fa fa-trash'></i> Delete</button>
+                    {% endif %}
+                  </td>
                 </tr>
 
                 <!-- Modal -->
@@ -42,15 +48,28 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                           aria-label="Close"></button>
                       </div>
-                      <div class="modal-body">
-                        <p>Are you sure you want to cancel the appointment?<p>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
-                        <form action="{{url_for('cancel_appointment', appointment_id=appointment.id)}}" method="POST">
-                          <input class="btn btn-danger" type="submit" value="Delete">
-                        </form>
-                      </div>
+                      {% if not appointment.status %}
+                        <div class="modal-body">
+                          <p>Are you sure you want to cancel the appointment?<p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
+                          <form action="{{url_for('cancel_appointment', appointment_id=appointment.id)}}" method="POST">
+                            <input class="btn btn-danger" type="submit" value="Delete">
+                          </form>
+                        </div>
+                      {% else %}
+                        <div class="modal-body">
+                          <p>Are you sure you want to Delete the appointment?<p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
+                          <form action="{{url_for('delete_appointment', appointment_id=appointment.id)}}" method="POST">
+                            <input class="btn btn-danger" type="submit" value="Delete">
+                          </form>
+                        </div>
+                      {% endif %}
+                      
                     </div>
                   </div>
                 </div>

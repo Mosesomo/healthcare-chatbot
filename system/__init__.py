@@ -7,6 +7,7 @@ from flask_bcrypt import Bcrypt
 from flask_mail import Mail
 from itsdangerous import URLSafeTimedSerializer
 from flask_uploads import UploadSet, IMAGES, configure_uploads
+from apscheduler.schedulers.background import BackgroundScheduler
 
 
 load_dotenv()
@@ -37,6 +38,8 @@ configure_uploads(app, photos)
 
 docs = UploadSet('documents', ('pdf', 'docx'))
 configure_uploads(app, docs)
+
+scheduler = BackgroundScheduler()
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'

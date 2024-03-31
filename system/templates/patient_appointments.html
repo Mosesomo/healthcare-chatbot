@@ -22,18 +22,21 @@
                         <p>Location: {{appointment.location}}</p>
                         <p>Doctor Name: {{appointment.doctor.name}}</p>
                         <p>Doctor Email: {{appointment.doctor.email}}</p>
+                        <p>Consultation Fee: Ksh.{{appointment.doctor.fee}}</p>
+                        <p>Call: {{appointment.doctor.phone}}</p>
                         <p>Available Days: {{appointment.doctor.availability}}</p>
                         <p>From: {{appointment.doctor.start_time.strftime('%H:%M:%S')}}</p>
                         <p>To: {{appointment.doctor.end_time.strftime('%H:%M:%S')}}</p>
+                        <p>Consultation Duration: 1 Hour</p>
                       </td>
                       <td>
-                        <button class="btn btn-primary btn-sm edit btn-flat">pending</button>
+                        <button class="btn {{'btn-warning' if appointment.status else 'btn-primary'}} btn-sm edit btn-flat">{{ 'Cancelled' if appointment.status else 'Confirmed'}}</button>
                       </td>
                       <td class="center d-flex w-100 gap-2">
-                        <form action="" method="POST">
-                          <button type="submit" class="btn btn-primary btn-sm edit btn-flat"><i class="fa fa-edit"></i> Reschedule</button>
-                        </form>
-                        <button type="button" class='btn btn-danger btn-sm delete btn-flat'
+                        <a href="{{url_for('reschedule')}}">
+                          <button type="submit" class="btn btn-primary  btn-sm edit btn-flat"><i class="fa fa-edit"></i> Reschedule</button>
+                        </a>
+                        <button type="button" class="btn btn-danger {{ 'd-none' if appointment.status else 'd-block' }} btn-sm delete btn-flat"
                           data-bs-toggle="modal" data-bs-target="#exampleModal{{appointment.id}}"><i
                             class='fa fa-times'></i> Cancel</button>
                       </td>

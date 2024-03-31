@@ -74,14 +74,14 @@ with app.app_context():
     
     db.session.add(testimonial3)"""
     
-    """user_id = '58536af4-f5b4-44f3-96ca-fbe32bd85580'
+    """user_id = 'cb5c3bc8-f8db-4e8a-8fc6-1c7b8affb8a9'
     user = User.query.get(user_id)
     user.is_admin = True"""
     
     
-    doc_id = 'f845c425-2bcc-40b2-9617-ce4b35ef9cad'
-    doc = Doctor.query.get(doc_id)
-    doc.email_confirmed = True
+    # doc_id = 'f845c425-2bcc-40b2-9617-ce4b35ef9cad'
+    # doc = Doctor.query.get(doc_id)
+    # doc.email_confirmed = True
     
     """doctor_id = 'edf84aac-e868-4d84-96e3-136af439d4cd'
     doctor = Doctor.query.get(doctor_id)

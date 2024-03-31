@@ -1,3 +1,4 @@
+from email.policy import default
 import uuid
 from datetime import datetime
 from flask_login import UserMixin
@@ -41,6 +42,7 @@ class Doctor(db.Model, UserMixin):
     name = db.Column(db.String(70), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     phone = db.Column(db.String(20), nullable=True)
+    lincense = db.Column(db.String(25), nullable=False)
     department = db.Column(db.String(67), nullable=False)
     picture = db.Column(db.String(255), nullable=False, default='profile.jpg')
     approved = db.Column(db.Boolean, default=False)  # Approval status
@@ -92,6 +94,7 @@ class Appointment(db.Model):
     appointment_time = db.Column(db.Time, nullable=False)
     location = db.Column(db.String(100), nullable=False)  # Virtual or Hospital
     description = db.Column(db.Text, nullable=True)
+    status = db.Column(db.Boolean, default=False) # cancelled or confirmed
     # Define relationships
     doctor = db.relationship('Doctor', back_populates='appointments')
     user = db.relationship('User', back_populates='appointments')

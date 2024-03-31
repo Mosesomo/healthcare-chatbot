@@ -1,0 +1,47 @@
+{% extends 'root.html' %}
+{% block content %}
+  <section class="content">
+    <div class="download">
+        <a href="{{ url_for('download_report') }}" class="btn btn-warning btn-sm edit btn-flat">Download Report</a>
+    </div>    
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <h4 class="">Appointment Report</h4>
+          <div class="box-body">
+            <table id="example1" class="table table-bordered table-hover table-striped">
+              <thead class="table bg-primary text-light">
+                <th>Appointment Date</th>
+                <th>Appointment Time</th>
+                <th>Doctor Name</th>
+                <th>Department</th>
+                <th>Patient Name</th>
+                <th>Patient Contact No.</th>
+                <th>Appointment Location</th>
+                <th>Appointment  Status</th>
+              </thead>
+              <tbody class="text-dark">
+                {% for appointment in appointments %}
+                    <tr>
+                      <td>{{appointment.appointment_date}}</td>
+                      <td>{{appointment.appointment_time}}</td>
+                      <td>{{appointment.doctor.name}}</td>
+                      <td>{{appointment.doctor.department}}</td>
+                      <td>{{appointment.user.first_name}} {{appointment.user.last_name}}</td>
+                      <td>{{appointment.user.phone}}</td>
+                      <td>{{appointment.location}}</td>
+                      <td>
+                        <button class="btn {{'btn-warning' if appointment.status else 'btn-primary'}} btn-sm edit btn-flat">
+                            {{'Cancelled' if appointment.status else  'Confirmed'}}
+                        </button>
+                      </td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}

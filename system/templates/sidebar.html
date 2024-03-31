@@ -18,10 +18,13 @@
             <li class="mb-2"><a href="{{url_for('dashboard')}}" class="d-flex align-items-center"><i class="fa fa-dashboard me-2"></i> Dashboard</a></li>
             <li class="mb-2"><a href="{{url_for('doctors')}}" class="d-flex align-items-center"><i class="fa fa-users me-2"></i> Doctors</a></li>
             <li class="mb-2"><a href="{{url_for('patients')}}" class="d-flex align-items-center"><i class="fa fa-users me-2"></i> Patients</a></li>
-            <li class="mb-2"><a href="{{url_for('my_appointments')}}" class="d-flex align-items-center"><i class="fa fa-edit me-2"></i>My Appointments</a></li>
+            <li class="mb-2"><a href="{{url_for('report')}}" class="d-flex align-items-center"><i class="fa fa-edit me-2"></i> Report</a></li>
          {% else %}
-            <li class="mb-2"><a href="{{url_for('appointments')}}" class="d-flex align-items-center"><i class="fa fa-edit me-2"></i> Appointments</a></li>
-            <li class="mb-2"><a href="{{url_for('my_appointments')}}" class="d-flex align-items-center"><i class="fa fa-edit me-2"></i>My Appointments</a></li>
+            {% if current_user.approved %}
+               <li class="mb-2"><a href="{{url_for('appointments')}}" class="d-flex align-items-center"><i class="fa fa-edit me-2"></i> Appointments</a></li>
+            {% else %}
+               <li class="mb-2"><a href="{{url_for('my_appointments')}}" class="d-flex align-items-center"><i class="fa fa-edit me-2"></i>My Appointments</a></li>
+            {% endif %}
          {% endif %}
          
          </ul>

@@ -25,14 +25,15 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     firstName = StringField("First Name", validators=[DataRequired()])
     lastName = StringField("Last Name", validators=[DataRequired()])
-    email = EmailField("Email", validators=[DataRequired()],
+    email = EmailField("Email", validators=[DataRequired(),
+                                            Regexp(r'^[\w\.-]+@[\w\.-]+\.\w+$', message='Invalid email address')],
                        render_kw={"email": "example@gmail.com"})
     phone = StringField('Phone Number', validators=[DataRequired(),
                                                     Regexp('^\\+254[0-9]{9}$',
                                                            message='Invalid phone number.\
                                                                Must start with +254 followed by 9 digits.')],
                         render_kw={"placeholder": "+254xxxxxxxxx"})
-    password = PasswordField("Password", validators=[DataRequired(), Length(min=8)],
+    password = PasswordField("Password", validators=[DataRequired(), Length(min=8, max=16)],
                              render_kw={"Password": "Password"})
     confirmPassword = PasswordField("Confirm Password",
                                     validators=[DataRequired(),
@@ -46,15 +47,29 @@ class RegistrationForm(FlaskForm):
         if email:
             raise ValidationError('Email already exist')
         
+    
+    def validate_password(self, password_field):
+        password = password_field.data
+        # Check if password contains at least one uppercase letter, one lowercase letter, and one digit
+        if (not any(c.isupper() for c in password)
+            or not any(c.islower() for c in password)
+            or not any(c.isdigit() for c in password)):
+            raise ValidationError('Password must contain at least one uppercase letter,\
+                one lowercase letter, and one digit.')
+        
 class DoctorRegistration(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
-    email = EmailField("Email", validators=[DataRequired()],
+    email = EmailField("Email", validators=[DataRequired(),
+                                            Regexp(r'^[\w\.-]+@[\w\.-]+\.\w+$', message='Invalid email address')],
                        render_kw={"placeholder": "example@gmail.com"})
     phone = StringField('Phone Number', validators=[DataRequired(),
                                                     Regexp('^\\+254[0-9]{9}$',
                                                            message='Invalid phone number.\
                                                                Must start with +254 followed by 9 digits.')],
                         render_kw={"placeholder": "+254xxxxxxxxx"})
+    license = StringField('Doctor License Number',
+                                 validators=[DataRequired(),
+                                             Regexp(r'^MP-\d{6}$|^DE-\d{6}$', message='Invalid license number format')])
     department = StringField("Department", validators=[DataRequired()])
     fee = FloatField('Consultation Fee')
     availability = SelectMultipleField('Available Days', choices=[
@@ -73,7 +88,7 @@ class DoctorRegistration(FlaskForm):
                                            FileAllowed(docs, 'Only pdf and docx are allowed')])
     picture = FileField('Upload Your Picture', validators=[FileRequired(),
                                                            FileAllowed(photos, 'Only images are allowed')])
-    password = PasswordField("Password", validators=[DataRequired(), Length(min=8)],
+    password = PasswordField("Password", validators=[DataRequired(), Length(min=8, max=16)],
                              render_kw={"Password": "Password"})
     confirmPassword = PasswordField("Confirm Password",
                                     validators=[DataRequired(),
@@ -87,6 +102,16 @@ class DoctorRegistration(FlaskForm):
         email = Doctor.query.filter_by(email=email.data).first()
         if email:
             raise ValidationError('Email already exist')
+        
+    def validate_password(self, password_field):
+        password = password_field.data
+        # Check if password contains at least one uppercase letter, one lowercase letter, and one digit
+        if (not any(c.isupper() for c in password)
+            or not any(c.islower() for c in password)
+            or not any(c.isdigit() for c in password)):
+            raise ValidationError('Password must contain at least\
+                one uppercase letter, one lowercase letter, and one digit.')
+        
     
 
 
