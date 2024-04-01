@@ -42,7 +42,7 @@
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s">
-        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <a href="{{url_for('home')}}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <h1 class="m-0 text-primary"><i class="far fa-hospital me-3"></i>MediBridge</h1>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -58,7 +58,6 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu rounded-0 rounded-bottom m-0">
                         <a href="{{ url_for('testimonials') }}" class="dropdown-item">Testimonial</a>
-                        <a href="{{ url_for('not_found') }}" class="dropdown-item">404 Page</a>
                     </div>
                 </div>
                 <a href="{{ url_for('contact') }}" class="nav-item nav-link">Contact</a>
@@ -82,7 +81,7 @@
                             <div class="dropdown-menu rounded-0 rounded-bottom m-0">
                                     <div class="user dropdown-item">
                                         <p>
-                                            <img class="" src="{{url_for('static', filename='img/userImage.png')}}" width="50" height="50">
+                                            <img class="" src="{{ current_user.picture }}" width="50" height="50">
                                             Profile
                                         </p>
                                     </div>

@@ -44,7 +44,7 @@ with app.app_context():
     
     db.session.add(doctor3)"""
     
-    """testimonial1 = Testimonial(
+    testimonial1 = Testimonial(
         name="Nicholus Mbuki",
         text="I had a fantastic experience with the healthcare team\
             at your clinic. They were very professional and made me feel at\
@@ -72,7 +72,7 @@ with app.app_context():
         picture='img/boy5.jpeg'
     )
     
-    db.session.add(testimonial3)"""
+    db.session.add(testimonial3)
     
     """user_id = 'cb5c3bc8-f8db-4e8a-8fc6-1c7b8affb8a9'
     user = User.query.get(user_id)

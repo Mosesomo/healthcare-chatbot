@@ -53,7 +53,6 @@ def not_found():
 
 
 @app.route('/info/<doctor_id>')
-@login_required
 def info(doctor_id):
     doctor = Doctor.query.get_or_404(doctor_id)
     if doctor:
