@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Appointment Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <p class="d-inline-block border rounded-pill py-1 px-4">Doctor Info</p>
+                <img class="img-fluid" src="{{doctor.picture}}" alt="">
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="bg-light row rounded d-flex align-items-center p-5 mb-4">
+                  <p class="text-dark bold">Doctor Name     : <span class="text-secondary">{{doctor.name}}</span></p>
+                  <p class="text-dark bold">Contact         : <span class="text-secondary">{{doctor.phone}}</span></p>
+                  <p class="text-dark bold">Department      : <span class="text-secondary">{{doctor.department}}</span></p>
+                  <p class="text-dark bold">Consultation Fee: <span class="text-secondary">kshs.{{doctor.fee}}</span></p>
+                  <p class="text-dark bold">Available Days  : <span class="text-secondary">{{doctor.availability}}</span></p>
+                  <p class="text-dark bold">From            : <span class="text-secondary">{{doctor.start_time.strftime("%H:%M")}}</span></p>
+                  <p class="text-dark bold">To              : <span class="text-secondary">{{doctor.end_time.strftime("%H:%M")}}</span></p>
+                </div>
+                <div class="col-12 mt-6">
+                    <a href="{{url_for('patient_doc_appointment')}}"><button class="btn btn-primary w-100 py-3 mt-6" type="submit"><i class="fa fa-calendar-alt me-2"></i>Schedule Appointment</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Appointment End -->
+{% endblock %}

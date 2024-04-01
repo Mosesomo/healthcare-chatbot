@@ -2,7 +2,7 @@ from email.policy import default
 import uuid
 from datetime import datetime
 from flask_login import UserMixin
-from system import db, login_manager
+from system import db, login_manager, serial
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -33,6 +33,15 @@ class User(db.Model, UserMixin):
         super(User, self).__init__(**kwargs)
         if not self.id:
             self.id = str(uuid.uuid4())
+            
+    
+    @staticmethod
+    def very_reset_token(token):
+        try:
+            email = serial.loads(token, salt='password-reset', max_age=3600)
+        except:
+            return None
+        return User.query.filter_by(email=email).first()
 
     def __repr__(self):
         return f"<User id:{self.id}, FirstName:{self.first_name}, LastName:{self.last_name}, Email:{self.email}, Email_confirmed: {self.email_confirmed}, is_admin: {self.is_admin}>"

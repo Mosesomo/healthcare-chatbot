@@ -1,7 +1,9 @@
 import re
-from system import app, db, bcrypt, serial, photos, docs, scheduler
-from system.form import AppointmentForm, LoginForm, RegistrationForm, DoctorRegistration
-from flask import flash, render_template, url_for, redirect, send_from_directory, make_response, send_file
+from system import app, db, bcrypt, serial, photos, docs, scheduler, mail
+from system.form import (AppointmentForm, LoginForm,
+                         RegistrationForm, DoctorRegistration,
+                         ResetPasswordForm, RequestResetForm)
+from flask import flash, render_template, url_for, redirect, send_from_directory, request, send_file
 from system.model import User, Doctor, Testimonial, Appointment
 from system.send_mails import (send_approval_email, send_confirmation_email,
                                send_doctor_notification_email,
@@ -14,6 +16,7 @@ from datetime import datetime, date, timedelta
 from sqlalchemy import desc
 from system.generate_report import generate_report
 from io import BytesIO
+from flask_mail import Message
 
 
 
@@ -48,24 +51,13 @@ def not_found():
     return render_template('404.html')
 
 
-@app.route('/chatbot')
-@login_required
-def chatbot():
-    return render_template('chatbot.html')
 
-
-@app.route('/appointment')
+@app.route('/info/<doctor_id>')
 @login_required
-def appointment():
-    doctor = Doctor.query.filter_by(department="Counselling").first()
-    return render_template('appointment.html', doctor=doctor)
-
-@app.route('/appointment/<doctor_id>')
-@login_required
-def doc_appointment(doctor_id):
+def info(doctor_id):
     doctor = Doctor.query.get_or_404(doctor_id)
-    if doctor and doctor.department == "Counselling":
-        return render_template('appointment.html', doctor=doctor)
+    if doctor:
+        return render_template('infor.html', doctor=doctor)
     else:
         return redirect(url_for('not_found'))
 
@@ -531,3 +523,47 @@ scheduler.start()
 def download_report():
     report_data = generate_report()
     return send_file(BytesIO(report_data), mimetype="text/csv", as_attachment=True, download_name='report.csv')
+
+
+def generate_reset_token(email):
+    return serial.dumps(email, salt='password-reset')
+
+def send_reset_email(email, reset_link):
+    msg = Message('Reset Password Link', sender='noreply@mosesomo.tech', recipients=[email])
+    msg.body = f'Please click the following link to reset your password: {reset_link}'
+    mail.send(msg)
+    token = serial.dumps(email, salt='password-reset')
+    return token
+
+@app.route("/reset_password", methods=['GET', 'POST'])
+def request_reset():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            token = generate_reset_token(user.email)
+            reset_link = url_for('request_token', token=token, _external=True)
+            send_reset_email(user.email, reset_link)
+            flash('An email has been sent with instructions to reset your password', 'info')
+        else:
+            flash('Email not found', 'warning')
+    return render_template('reset_request.html', title='Reset Password', form=form)
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def request_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    user = User.very_reset_token(token)
+    if user is None:
+        flash('That is an invalid token', 'warning')
+        return redirect(url_for('request_reset'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+        flash('Your password has been updated successfully!', 'success')
+        return redirect(url_for('login'))
+    return render_template('reset_password.html', title='Reset Password', form=form)
