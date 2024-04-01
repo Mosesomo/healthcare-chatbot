@@ -1,5 +1,5 @@
 import csv
-from io import BytesIO
+from io import StringIO
 from system.model import Appointment
 
 def generate_report():
@@ -8,23 +8,31 @@ def generate_report():
 
     # Prepare the data for the CSV file
     data = [
-        ['Appointment Date', 'Appointment Time', 'Doctor Name', 'Department', 'Patient Name', 'Patient Contact No.', 'Appointment Location', 'Appointment Status'],
+        ['Appointment Date', 'Appointment Time', 
+         'Doctor Name', 'Doctor Email', 'Department', 'Patient Name', 'Patient Email',
+         'Patient Contact No.', 'Appointment Location',
+         'Appointment Status'],
     ]
 
     for appointment in appointments:
+        patient_name = "{} {}".format(appointment.user.first_name, appointment.user.last_name)
         data.append([
             appointment.appointment_date,
             appointment.appointment_time,
             appointment.doctor.name,
+            appointment.doctor.email,
             appointment.doctor.department,
-            appointment.user.first_name,
+            patient_name,
+            appointment.user.email,
             appointment.user.phone,
             appointment.location,
             'Cancelled' if appointment.status else 'Confirmed',
         ])
 
-    output = BytesIO()
+    output = StringIO()
     writer = csv.writer(output)
-    writer.writerows([map(lambda x: x.encode('utf-8'), row) for row in data])
+    writer.writerows(data)
     output.seek(0)
-    return output
+    # Convert the StringIO object to bytes
+    output_bytes = output.getvalue().encode('utf-8')
+    return output_bytes

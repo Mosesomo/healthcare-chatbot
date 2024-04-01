@@ -13,6 +13,7 @@ from itsdangerous import SignatureExpired
 from datetime import datetime, date, timedelta
 from sqlalchemy import desc
 from system.generate_report import generate_report
+from io import BytesIO
 
 
 
@@ -529,4 +530,4 @@ scheduler.start()
 @app.route('/download_report')
 def download_report():
     report_data = generate_report()
-    return send_file(report_data, mimetype="text/csv", as_attachment=True, download_name='report.csv')
+    return send_file(BytesIO(report_data), mimetype="text/csv", as_attachment=True, download_name='report.csv')
