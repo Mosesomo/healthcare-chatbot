@@ -322,40 +322,68 @@
 
         <!-- Chatbot UI Start -->
         <div class="chat-bot-button">
-            <button class="chat" id="chat-toggle" onclick="openChat()">
-                Feeling sick? lets chat
+            <button class="chat-btn" id="chat-toggle" onclick="openChat()">
+                <i class="fas fa-comment-dots"></i>
             </button>
         </div>
-        <div class="chat-box" id="chat-box" style="display: none">
-            <div class="chat-box-header">
-                <span
-                    id="close-chat-btn"
-                    onclick="closeChat()"
-                    aria-hidden="true"
-                    >&times;</span
-                >
-            </div>
-            <div class="chat-box-body">
-                <div class="response">
-                    <p>
-                        Welcome to our AI health care assistant, feeling sick? I
-                        am here to assist you, Let's have a chat.
-                    </p>
+        <div id="chat-box" class="container-fluid">
+            <div class="row h-100">
+                <div class="col-md-8 col-xl-6 chat">
+                    <div class="card">
+                        <div class="card-header msg_head">
+                            <div class="d-flex">
+                                <div class="img_cont">
+                                    <img
+                                        src="https://images.pexels.com/photos/8566540/pexels-photo-8566540.jpeg?auto=compress&cs=tinysrgb"
+                                        class="user_img"
+                                    />
+                                </div>
+                                <div class="user_info">
+                                    <span>ChatBot</span>
+                                    <p>Ask me anything!</p>
+                                </div>
+                                <div class="close-icon" onclick="closeChat()">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body msg_card_body">
+                            <div class="response">
+                                <p>
+                                    Welcome to our AI healthcare assistant.
+                                    Feeling sick? I am here to assist you. Let's
+                                    have a chat.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <form id="messageArea" class="input-group">
+                                <input
+                                    type="text"
+                                    id="text"
+                                    name="msg"
+                                    placeholder="Type your message..."
+                                    autocomplete="off"
+                                    class="form-control type_msg"
+                                    required
+                                />
+                                <div class="input-group-append">
+                                    <button
+                                        type="submit"
+                                        id="send"
+                                        class="input-group-text send_btn"
+                                    >
+                                        <i class="fas fa-location-arrow"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="chat-box-footer">
-                <input type="text" placeholder="Ask a question..." />
-                <button>Send</button>
             </div>
         </div>
         <!-- Chatbot UI End -->
-
         <!-- Back to Top -->
-        <a
-            href="#"
-            class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"
-            ><i class="bi bi-arrow-up"></i
-        ></a>
 
         <!-- JavaScript Libraries -->
 

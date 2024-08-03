@@ -7,10 +7,10 @@ const closeChat = () => {
 };
 
 // Chatbot integration
-const chatBox = document.querySelector(".chat-box");
+const chatBox = document.getElementById("chat-box");
 const inputField = chatBox.querySelector("input[type='text']");
 const button = chatBox.querySelector("button");
-const chatBoxBody = chatBox.querySelector(".chat-box-body");
+const chatBoxBody = chatBox.querySelector(".msg_card_body");
 
 button.addEventListener("click", sendMessage);
 inputField.addEventListener("keypress", function (event) {
@@ -23,8 +23,21 @@ function sendMessage() {
   const message = inputField.value;
   if (!message.trim()) return; // Avoid sending empty messages
   inputField.value = "";
-  chatBoxBody.innerHTML += `<div class="message"><p>${message}</p></div>`;
-  chatBoxBody.innerHTML += `<div id="loading" class="response loading">.</div>`;
+  const timestamp = new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  chatBoxBody.innerHTML += `
+    <div class="msg_container">
+      <div class="message msg_cotainer_send">
+        <p>${message}</p>
+        <span class="msg_time_send">${timestamp}</span>
+      </div>
+    </div>`;
+  chatBoxBody.innerHTML += `
+    <div class="msg_container">
+      <div id="loading" class="response loading">.</div>
+    </div>`;
   scrollToBottom();
   window.dotsGoingUp = true;
   const dots = window.setInterval(function () {
@@ -55,16 +68,36 @@ function sendMessage() {
       document.getElementById("loading").remove();
       console.log("API Response:", data); // Log the API response
       if (data.bot) {
-        chatBoxBody.innerHTML += `<div class="response"><p>${data.bot}</p></div>`;
+        const botTimestamp = new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        chatBoxBody.innerHTML += `
+          <div class="msg_container">
+            <div class="response msg_cotainer">
+              <p>${data.bot}</p>
+              <span class="msg_time">${botTimestamp}</span>
+            </div>
+          </div>`;
       } else {
-        chatBoxBody.innerHTML += `<div class="response error"><p>Unexpected response format.</p></div>`;
+        chatBoxBody.innerHTML += `
+          <div class="msg_container">
+            <div class="response error msg_cotainer">
+              <p>Unexpected response format.</p>
+            </div>
+          </div>`;
       }
       scrollToBottom();
     })
     .catch((error) => {
       console.error("Error fetching response:", error);
       document.getElementById("loading").remove();
-      chatBoxBody.innerHTML += `<div class="response error"><p>Failed to fetch response. Please try again later.</p></div>`;
+      chatBoxBody.innerHTML += `
+        <div class="msg_container">
+          <div class="response error msg_cotainer">
+            <p>Failed to fetch response. Please try again later.</p>
+          </div>
+        </div>`;
       scrollToBottom();
     });
 }
