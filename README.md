@@ -1,4 +1,7 @@
 # Healthcare Chatbot Documentation
+
+![Screenshot (40)](https://github.com/user-attachments/assets/6c48cbf9-91e3-440e-aff8-08d503f3fd97)
+
 # Overview
 The Healthcare Chatbot is an AI-powered assistant designed to help users with their health-related queries. It can provide information, answer questions, and offer basic guidance based on the user's input. The chatbot is integrated into a web interface and is accessible via a chat button on the website. users can also book an appointment with the doctor in the system
 
